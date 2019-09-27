@@ -33,8 +33,14 @@ ActiveRecord::Schema.define(version: 2019_09_27_162759) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.integer "product_id"
-    t.string "product_name"
+    t.string "identity"
+    t.string "species"
+    t.string "common_name"
+    t.string "origin"
+    t.string "country"
+    t.integer "viable_seed_per_kg"
+    t.string "availability"
+    t.string "uses"
     t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
