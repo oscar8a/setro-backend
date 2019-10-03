@@ -8,14 +8,14 @@ class ApplicationController < ActionController::API
   def authenticated?
     try_get_token.present?
   end
-
+  # eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.ETUYUOkmfnWsWIvA8iBOkE2s1ZQ0V_zgnG_c4QRrhbg
   private
   def try_get_token
     token = request.headers["Authorization"]
 
     if token.present?
       begin
-        decoded_token = JWT.decode(token, "secret", true, { algorithm: 'HS256'})
+        decoded_token = JWT.decode(token, secret, true, { algorithm: 'HS256'})
       rescue JWT::VerificationError
         return nil
       end
