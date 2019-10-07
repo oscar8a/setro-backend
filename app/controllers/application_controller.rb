@@ -15,7 +15,7 @@ class ApplicationController < ActionController::API
 
     if token.present?
       begin
-        decoded_token = JWT.decode(token, secret, true, { algorithm: 'HS256'})
+        decoded_token = JWT.decode(token, ENV["JWT_SECRET_KEY"], true, { algorithm: 'HS256'})
       rescue JWT::VerificationError
         return nil
       end

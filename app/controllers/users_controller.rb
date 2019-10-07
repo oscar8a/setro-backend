@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     user = User.create(user_params)
 
     if user.valid?
-      token = JWT.encode({ user_id: user.id }, ENV["JWT_SECRET_KEY"], true, { algorithm: 'HS256'} )
+      token = JWT.encode({ user_id: user.id }, ENV["JWT_SECRET_KEY"], 'HS256' )
       render json: { token: token, username: user.first_name }
     else
       render json: {errors: user.errors.full_messages}
@@ -54,7 +54,6 @@ class UsersController < ApplicationController
   end
 
   def authenticated?
-    false
     token = request.headers["Authorization"]
 
     if token.present?
