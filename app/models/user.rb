@@ -4,10 +4,6 @@ class User < ApplicationRecord
   has_secure_password
 
   validates_presence_of :first_name, :email
-
-  # def serializable_hash(opts)
-  #   super(opts.merge(only: [:id, :username]))
-  # end
-
+  validates_uniqueness_of :email
   
 end

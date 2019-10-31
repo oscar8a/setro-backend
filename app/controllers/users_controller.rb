@@ -1,23 +1,28 @@
 class UsersController < ApplicationController
+  skip_before_action :authorized, only: [:create]
 
   def index
-    if authenticated?
+    # if authenticated?
       users = User.all
       render json: users
-    else
-      render :json => { go_away: true }, :status => :unauthorized
-    end
+    # else
+    #   render :json => { go_away: true }, :status => :unauthorized
+    # end
+  end
+
+  def profile
+    render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end
 
   def show
     user_id = params[:id]
 
-    if authorized?(user_id)  
+    # if authorized?(user_id)  
       user = User.find(params[:id])
       render json: user
-    else 
-      render :json => { go_away: true }, :status => :unauthorized
-    end
+    # else 
+    #   render :json => { go_away: true }, :status => :unauthorized
+    # end
   end
 
   # def new
@@ -32,12 +37,13 @@ class UsersController < ApplicationController
 
   def create 
     user = User.create(user_params)
-
+    
     if user.valid?
-      token = JWT.encode({ user_id: user.id }, ENV["JWT_SECRET_KEY"], 'HS256' )
-      render json: { token: token, username: user.first_name }
+      token = encode_token(password: user.password)
+          #   token = JWT.encode({ user_id: user.id }, ENV["JWT_SECRET_KEY"], 'HS256' )
+      render json: { user: user, token: token }, status: :created
     else
-      render json: {errors: user.errors.full_messages}
+      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -50,7 +56,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.permit(:first_name, :last_name, :email, :password, :phone, :street, :city, :state, :zipcode)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :phone, :street, :city, :state, :zipcode)
   end
 
   def authenticated?
