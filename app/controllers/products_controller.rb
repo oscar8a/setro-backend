@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
     if product
       render json: product
     else
-      render json: { message: 'No product found with that id' }
+      render json: { errors: 'No product found with that id' }
     end
   end
   
