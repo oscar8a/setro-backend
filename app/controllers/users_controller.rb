@@ -3,13 +3,13 @@ class UsersController < ApplicationController
 
   def index
     # if authenticated?
-      users = User.all
-      render json: users
+    users = User.all
+    render json: users
     # else
     #   render :json => { go_away: true }, :status => :unauthorized
     # end
   end
-
+  
   def profile
     render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     user = User.create(user_params)
     
     if user.valid?
-      token = encode_token(password: user.password)
+      token = encode_token(user_id: user.id)
           #   token = JWT.encode({ user_id: user.id }, ENV["JWT_SECRET_KEY"], 'HS256' )
       render json: { user: user, token: token }, status: :created
     else
