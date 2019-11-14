@@ -25,18 +25,22 @@ class UsersController < ApplicationController
     # end
   end
 
-  # def new
-  #   user = User.new(user_params)
+  def edit
+  end
 
-  #   if user.save
-  #       render json: user
-  #   else
-  #       render json: {errors: user.errors}
-  #   end
-  # end
+  def update
+    user = User.find_by(email: user_params[:email])
+
+    if user.update(user_params)
+      render json: user
+    else
+      render json: { errors: user.errors.full_messages }
+    end
+  end
 
   def create 
     user = User.create(user_params)
+    user.create_cart
     
     if user.valid?
       token = encode_token(user_id: user.id)
