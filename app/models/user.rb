@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :orders
-  
+
   has_secure_password
 
   validates_presence_of :first_name, :email
@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   def create_cart
     userID = self.id 
-    Order.create(user_id: userID)
+    Order.create(user_id: userID, status: false)
   end
   
 end
