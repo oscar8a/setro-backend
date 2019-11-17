@@ -14,17 +14,18 @@ class OrdersController < ApplicationController
     # end
   end 
 
-  def user_order
-    orders = Order.all.find_by(user_id: order_params[:user_id])
+  def user_cart
+    user = current_user
+    cart = Order.all.find_by(:user_id => user.id, :status => false)
     
-    if order.valid
-      render json: order
+    if cart.valid?
+      render json: cart
     else
-      @order = Order.new(user_id: order_params[:user_id], status: false, date: nil)
-      cartOrder = Order.create(@order)
+      # @order = Order.new(user_id: order_params[:user_id], status: false, date: nil)
+      # cartOrder = Order.create(@order)
 
-      render json: cartOrder
-      # render json: { errors: orders.errors.full_messages }
+      # render json: cartOrder
+      render json: { errors: cart.errors.full_messages }
     end
   end
 
