@@ -8,5 +8,8 @@ Rails.application.routes.draw do
   # post '/cart', to 'orders#user_order'
   
   post '/login', to: 'auth#create'
+
   get '/profile', to: 'users#profile'
+  get '/myorders', to: 'orders#user_orders'
+  get '/myorderproducts', to: 'order_products#user_order_products'
 end

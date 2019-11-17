@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  skip_before_action :authorized
+  # skip_before_action :authorized
 
   def index
     
@@ -37,6 +37,13 @@ class OrdersController < ApplicationController
   def create 
   #   order = Order.create(order_params)
   #   render json: order
+  end
+
+  def user_orders
+    user = current_user
+    myorders = Order.all.select {|order| order.user_id == user.id } 
+
+    render json: myorders
   end
 
   private
