@@ -17,6 +17,17 @@ class OrderProductsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    order_product = OrderProduct.find_by(order_id: order_product_params[:order_id], product_id: order_product_params[:product_id])
+
+    order_product.update(quantity: order_product_params[:quantity])
+
+    render json: order_product
+  end
+
   def user_order_products
     user = current_user
 
