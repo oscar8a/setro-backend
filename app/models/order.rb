@@ -1,8 +1,6 @@
 class Order < ApplicationRecord
-  belongs_to :users
-
+  belongs_to :users, optional: true
   has_many :order_products
-  # has_many :orders, through: :order_products
 
   def products
     product = self.order_products.map { |order| order.product_id }

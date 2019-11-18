@@ -19,7 +19,7 @@ csv.each do |row|
   t.viable_seed_per_kg = row['viable_seed_per_kg']
   t.availability = row['availability']
   t.uses = row['uses']
-  t.price = row['price']
+  t.price = 4.99
   t.save
   puts "#{t.common_name} has been seeded to DB"
 end
