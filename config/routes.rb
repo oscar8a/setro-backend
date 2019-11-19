@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :users
   # , only: [:create]
 
-  get '/cart', to: 'orders#user_cart'
+  get '/cart/:id', to: 'orders#user_cart'
+  get '/cart', to: 'orders#user_cart_id'
   
   post '/login', to: 'auth#create'
 

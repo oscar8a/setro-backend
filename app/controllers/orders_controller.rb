@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
     # end
   end 
 
-  def user_cart
+  def user_cart_id
     user = current_user
     cart = Order.all.find_by(:user_id => user.id, :status => false)
     
@@ -26,6 +26,19 @@ class OrdersController < ApplicationController
 
       # render json: cartOrder
       render json: { errors: cart.errors.full_messages }
+    end
+  end
+
+  def user_cart
+    cartID = order_params[:id]
+    order = Order.find_by(id: cartID)
+    cartItems = order.products
+    
+    if cartItems.any?
+      render json: cartItems
+      # cartDetails: order.order_products
+    else
+      render json: { errors: cartItems.errors.full_messages }
     end
   end
 

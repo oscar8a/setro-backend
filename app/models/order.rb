@@ -20,4 +20,8 @@ class Order < ApplicationRecord
     time = self.created_at.strftime("%I:%M")
   end
 
+  def products_details
+    return self.order_products
+  end
+
 end
