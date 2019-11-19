@@ -2,30 +2,38 @@ class OrdersController < ApplicationController
   # skip_before_action :authorized
 
   def index
+    orders = Order.all.order(created_at: :desc)
     
-      orders = Order.all.order(created_at: :desc)
-      render json: orders
+    render json: orders
       
-      # , methods: [:products, :user, :date, :time], :except => [:created_at, :updated_at]
-
-
+    # , methods: [:products, :user, :date, :time], :except => [:created_at, :updated_at]
     # else 
     #   render json: { errors: 'product.errors.full_messages' }
     # end
   end 
 
+  def update
+    order = Order.find(order_params[:id])
+
+    if order.update(order_params)
+      render json: order
+    else
+      render json: { errors: user.errors.full_messages }
+    end
+  end
+
   def user_cart_id
     user = current_user
     cart = Order.all.find_by(:user_id => user.id, :status => false)
+
+    # byebug
     
-    if cart.valid?
+    if !!cart
       render json: cart
     else
-      # @order = Order.new(user_id: order_params[:user_id], status: false, date: nil)
-      # cartOrder = Order.create(@order)
-
-      # render json: cartOrder
-      render json: { errors: cart.errors.full_messages }
+      cart = user.create_cart
+      
+      render json: cart
     end
   end
 
@@ -34,7 +42,7 @@ class OrdersController < ApplicationController
     order = Order.find_by(id: cartID)
     cartItems = order.products
     
-    if cartItems.any?
+    if !!cartItems
       render json: cartItems
       # cartDetails: order.order_products
     else
