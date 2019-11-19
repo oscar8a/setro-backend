@@ -29,9 +29,17 @@ class OrderProductsController < ApplicationController
   end
 
   def user_order_products
-    user = current_user
+    cart_id = order_product_params[:id]
 
-    
+    cart_items = OrderProduct.all.select do |item|
+      item.order_id == order_product_params[:order_id].to_i
+    end
+    # byebug
+    if !!cart_items
+      render json: cart_items
+    else 
+      render json: cart_items.errors.full_messages
+    end
   end
 
   private
