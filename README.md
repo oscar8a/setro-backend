@@ -21,8 +21,9 @@ After successfully logging in, you will be presented with a collections of Tree 
 First, I will begin with the Back end setup. 
 
 ### Setting up the Rails Back-end API:
-1.make sure the database is created by running `rails db:create`
-2. Start up the Rails Server `rails server`
+1. Rails should be installed on your machine. Run `gem install rails`, if permission is needes run with `sudo`
+2. Make sure the database is created by running `rails db:create`
+3. Start up the Rails Server `rails server`
 
 ### Launch [Front-end React App](https://github.com/ozkr8a/setro-frontend):
 1. `npm start` runs the app in the development mode.
