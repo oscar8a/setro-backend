@@ -25,5 +25,5 @@ csv.each do |row|
 end
 puts "There are now #{Product.count} rows in the product table"
 
-User.create(first_name: 'oscar', last_name: 'ochoa', email: 'oscar@email.com', password: 'oscarpassword', phone: '1800', street: '613 Wilson', city: 'Brooklyn', state: 'NY', zipcode: 11207)
-User.create(first_name: 'Jose', last_name: 'Jose', email: 'jose@email.com', password: 'josepassword', phone: '18007070', street: '613 Mexico', city: 'Monterrey', state: 'MY', zipcode: 11200)
+# User.create(first_name: 'oscar', last_name: 'ochoa', email: 'oscar@email.com', password: 'oscarpassword', phone: '1800', street: '613 Wilson', city: 'Brooklyn', state: 'NY', zipcode: 11207)
+# User.create(first_name: 'Jose', last_name: 'Jose', email: 'jose@email.com', password: 'josepassword', phone: '18007070', street: '613 Mexico', city: 'Monterrey', state: 'MY', zipcode: 11200)
